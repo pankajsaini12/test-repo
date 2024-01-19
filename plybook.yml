@@ -1,0 +1,82 @@
+---
+- name: Test WinRM connection
+  hosts: myhosts
+  tasks:
+    # - name: Create directory structure
+    #   ansible.windows.win_file:
+    #     path: E:\Temp\folder
+    #     state: directory
+    - name: Verify python installed
+      win_shell: python --version
+      register: result
+
+    - debug:
+        msg: "{{ result.stdout }}"
+
+    - name: Find python binary
+      win_shell: (get-command python).Source
+      register: result
+
+    - debug:
+        msg: "{{ result.stdout }}"
+
+    - name: Set where python interpreter is
+      set_fact:
+        ansible_python_interpretor: "{{ result.stdout_lines[0] }}"
+    - name: Install docker-py python module
+      pip:
+        name: docker-py
+        state: present
+    - name: pull an image
+      docker_image:
+        name: jenkinsci
+    # - name: Touch a file (creates if not present, updates modification time if present)
+    #   ansible.windows.win_file:
+    #     path: D:\Temp\folder\foo.txt
+    #     state: touch
+    # - name: Copy a single file where the source is on the remote host
+    #   ansible.windows.win_copy:
+    #     src: D:\Temp\folder\foo.txt
+    #     dest: D:\Temp\foo.txt
+    #     remote_src: true
+    # - name: Uninstall a package and dependencies
+    #   win_chocolatey:
+    #     name: notepad++
+    #     remove_dependencies: true
+    #     state: absent
+    # - name: Remove Windows PowerShell Logs
+    #   win_eventlog:
+    #     name: System
+    #     state: clear
+    # - name: Download the Apache installer
+    #   ansible.windows.win_get_url:
+    #     url: https://get.videolan.org/vlc/3.0.20/win32/vlc-3.0.20-win32.exe
+    #     dest: E:\vlc-win32.exe
+    # - name: Uninstall notepad
+    #   win_package: 
+    #     path: C:\Program Files\Notepad++\uninstall.exe
+    #     state: absent
+    # - name: Install MSI
+    #   win_package: 
+    #     path: E:\vlc-win32.exe
+    #     arguments:
+    #       - /install
+    #       - /passive
+    #       - /norestart
+        # state: present
+    # - name: Uninstall notepadplusplus
+    #   win_chocolatey:
+    #     name: notepadplusplus
+    #     # version: '8.6.0'
+    #     state: absent
+    # - name: Install the VLC Media Player
+    #   ansible.windows.win_package:
+    #     path: https://get.videolan.org/vlc/3.0.20/win32/vlc-3.0.20-win32.exe
+    #     # product_id: '{CF2BEA3C-26EA-32F8-AA9B-331F7E34BA97}'
+    #     arguments:
+    #       - /install
+    #       - /passive
+    #       - /norestart
+    # - name: Reboot the machine with all defaults
+    #   ansible.windows.win_reboot:
+    # https://www.videolan.org/vlc/download-windows.html

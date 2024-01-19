@@ -1,0 +1,83 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=rasadb
+      - MYSQL_ROOT_USER=root
+      # - MYSQL_USER=docker_user
+      # - MYSQL_PASSWORD=Y@FV2E7Rhwjd0c8yT
+    depends_on:
+      - db
+  db:
+    image: mysql:latest
+    volumes:
+      - /data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=rasadb
+      - MYSQL_ROOT_USER=root
+      # - MYSQL_USER=docker_user
+      # - MYSQL_PASSWORD=Y@FV2E7Rhwjd0c8yT
+    ports:
+      - "3307:3306"
+    expose:
+      - 3307
+
+# services:
+#   db:
+#     image: mysql
+#   web:
+#     build: .
+#     command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+#     volumes:
+#       - .:/code
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - db
+
+# services:
+#   web:
+#     restart: always
+#     build: .
+#     expose:
+#       - "8000"
+#     links:
+#       - mysql:mysql
+#     volumes:
+#       - web-django:/usr/src/app
+#       - web-static:/usr/src/app/static
+#     env_file: .env
+#     environment:
+#       DEBUG: 'true'
+#     command: /usr/local/bin/gunicorn docker_django.wsgi:application -w 2 -b :8000
+
+#   postgres:
+#     restart: always
+#     image: postgres:latest
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - pgdata:/var/lib/postgresql/data/
+
+#   redis:
+#     restart: always
+#     image: redis:latest
+#     ports:
+#       - "6379:6379"
+#     volumes:
+#       - redisdata:/data
+
+# volumes:
+#   web-django:
+#   web-static:
+#   pgdata:
+#   redisdata:
