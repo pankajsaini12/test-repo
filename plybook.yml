@@ -1,6 +1,7 @@
 ---
 - name: Test WinRM connection
   hosts: myhosts
+  become: yes
   tasks:
     # - name: Create directory structure
     #   ansible.windows.win_file:
