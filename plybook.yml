@@ -24,10 +24,10 @@
     - name: Set where python interpreter is
       set_fact:
         ansible_python_interpretor: "{{ result.stdout_lines[0] }}"
-    - name: Install docker-py python module
-      pip:
-        name: docker-py
-        state: present
+    # - name: Install docker-py python module
+    #   pip:
+    #     name: docker-py
+    #     state: present
     - name: pull an image
       docker_image:
         name: jenkinsci
