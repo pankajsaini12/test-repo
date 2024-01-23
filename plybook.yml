@@ -29,8 +29,11 @@
     #     name: docker-py
     #     state: present
     - name: pull an image
-      docker_image:
-        name: jenkinsci
+      community.docker.docker_image:
+        name: jenkins/jenkins:jdk17-lts
+        source: pull
+      # docker_image:
+      #   name: jenkinsci
     # - name: Touch a file (creates if not present, updates modification time if present)
     #   ansible.windows.win_file:
     #     path: D:\Temp\folder\foo.txt
