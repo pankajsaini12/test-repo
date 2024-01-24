@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'rasadb',
         'USER': 'root',
         'PASSWORD': 'password',
-        'HOST': 'django_gpt_db_1',
+        'HOST': 'ansible_demo_db_1',
         'PORT': '3306',
     }
 }
