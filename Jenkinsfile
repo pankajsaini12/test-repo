@@ -8,10 +8,11 @@ node {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
+  stage('Wait For report'){
+    waitForQualityGate abortPipeline: false, credentialsId: 'sonarQube1'
+  }
   stage('Deploy') {
-    steps{
-      sh 'docker-compose build'
-      sh 'docker-compose up'
-    }
+    sh 'docker-compose build'
+    sh 'docker-compose up'
   }
 }
