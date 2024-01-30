@@ -8,4 +8,10 @@ node {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
+  stage('Deploy') {
+    steps{
+      sh 'docker-compose build'
+      sh 'docker-compose up'
+    }
+  }
 }
