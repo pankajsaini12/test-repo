@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'rasadb',
         'USER': 'root',
         'PASSWORD': 'password',
-        'HOST': 'db_1',
+        'HOST': 'upview_db_1',
         'PORT': '3306',
     }
 }
