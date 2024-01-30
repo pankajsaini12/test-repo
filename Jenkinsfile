@@ -9,7 +9,8 @@ node {
     }
   }
   stage("Quality Gate"){
-    timeout(time: 2, unit: 'MINUTES') 
+    sleep(60)
+    timeout(time: 1, unit: 'MINUTES') 
     {
       waitForQualityGate abortPipeline: false, credentialsId: 'sonarQube1'
     }         
