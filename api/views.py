@@ -3,6 +3,6 @@ from django.http import HttpResponse
 from .models import TestModel
 
 
-def home(request):
+def home():
     TestModel.objects.create(test_field="Field1 Created")
     return HttpResponse("Request success.")
