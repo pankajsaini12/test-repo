@@ -8,22 +8,17 @@ node {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
-  // stage("Quality Gate"){
-  //   timeout(time: 2, unit: 'MINUTES') 
-  //   {
-  //     waitForQualityGate abortPipeline: false, credentialsId: 'sonarQube1'
-  //     // waitForQualityGate abortPipeline: true
-  //     // def qg= waitForQualityGate()
-  //     // if (qg.status!= 'OK'){
-  //     //   error "Pipeline aborted due to quality gate failure: ${qg.status}"
-  //     // }
-  //   }         
-  //   echo 'Quality Gate Passed' 
-  // }
-  stage('Wait For report'){
-    waitForQualityGate abortPipeline: false, credentialsId: 'sonarQube1'
-    echo 'Quality Gate Passed'
+  stage("Quality Gate"){
+    timeout(time: 2, unit: 'MINUTES') 
+    {
+      waitForQualityGate abortPipeline: false, credentialsId: 'sonarQube1'
+    }         
+    echo 'Quality Gate Passed' 
   }
+  // stage('Wait For report'){
+  //   waitForQualityGate abortPipeline: false, credentialsId: 'sonarQube1'
+  //   echo 'Quality Gate Passed'
+  // }
   stage('Deploy') {
     sh 'docker-compose build'
     sh 'docker-compose up'
