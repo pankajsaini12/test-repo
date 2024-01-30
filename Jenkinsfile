@@ -9,7 +9,7 @@ node {
     }
   }
   stage("Quality Gate"){
-    timeout(time: 10, unit: 'MINUTE') 
+    timeout(time: 10, unit: 'Minutes') 
     {
       waitForQualityGate abortPipeline: true, credentialsId: 'sonarQube1'
       def qg= waitForQualityGate()
