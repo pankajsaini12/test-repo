@@ -22,7 +22,7 @@ node {
   // }
   stage('Wait For report'){
     waitForQualityGate abortPipeline: false, credentialsId: 'sonarQube1'
-    echo 'Quality Gate Passed
+    echo 'Quality Gate Passed'
   }
   stage('Deploy') {
     sh 'docker-compose build'
